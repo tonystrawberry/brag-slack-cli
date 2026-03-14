@@ -1,4 +1,4 @@
-# Brag Slack Bot
+# Brag Slack CLI
 
 Generate a **brag summary** from your Slack participation over a set period and turn it into a narrative suitable for performance evaluations.
 
