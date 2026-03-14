@@ -1,0 +1,32 @@
+{
+  "name": "brag-slack-bot",
+  "version": "0.1.0",
+  "description": "Generate a brag summary from your Slack participation for performance evaluations",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "brag": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "brag": "node dist/cli.js",
+    "dev": "tsc && node dist/cli.js"
+  },
+  "keywords": [
+    "slack",
+    "summary",
+    "brag",
+    "evaluation"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^1.45.0",
+    "@slack/web-api": "^7.0.0",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  }
+}
