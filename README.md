@@ -33,6 +33,14 @@ Generate a **brag summary** from your Slack participation over a set period and 
 - A final **merge** call combines all weekly summaries into one narrative without omitting content, so you get a single coherent doc.
 - Output is Markdown (and optionally a “Conversations analyzed” section with channel list and Slack links if you pass **`--sources`**).
 
+## Main libraries
+
+- **[@slack/web-api](https://github.com/slackapi/node-slack-sdk)** – Official Slack Node SDK. Used for authenticated API calls: `search.messages` (find your messages), `conversations.replies` (thread context), `conversations.history` (channel context), `users.info` / `users.lookupByEmail`, and `auth.test` (resolve current user and workspace URL).
+- **[@google/genai](https://github.com/google/generative-ai-js)** – Google Gemini API client. Used to generate the brag summary from conversation snippets (per-week summaries and the final merge) with configurable model (default `gemini-2.0-flash`), temperature, and max output tokens.
+- **[commander](https://github.com/tj/commander.js)** – CLI framework. Parses `--since`, `--until`, `--last`, `--output`, `--lang`, `--no-cache`, `--sources`, `--stdout`, and `--format` and runs the main workflow.
+
+The app is written in **TypeScript** and runs as ESM (`"type": "module"`).
+
 ## Setup
 
 1. **Clone and install**
