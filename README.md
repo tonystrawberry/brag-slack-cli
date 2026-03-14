@@ -67,7 +67,27 @@ Generate a **brag summary** from your Slack participation over a set period and 
 
 ## Usage
 
-**Last 30 days (output to default file):**
+You must provide either **`--last`** or both **`--since`** and **`--until`** to set the date range.
+
+### Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--since <date>` | Start date (YYYY-MM-DD). Use with `--until`. | — |
+| `--until <date>` | End date (YYYY-MM-DD). Use with `--since`. | — |
+| `--last <period>` | Shorthand: last N days or weeks, e.g. `30d`, `7d`, `2w`. | — |
+| `-o, --output <path>` | Output file path. | `output/brag-summary-<since>-to-<until>.md` |
+| `--stdout` | Print summary to stdout instead of writing a file. | off |
+| `--format <format>` | Output format: `markdown` or `html`. | `markdown` |
+| `--no-cache` | Bypass snippet cache and fetch from Slack. | off (cache used if `BRAG_CACHE=1`) |
+| `--lang <code>` | Output language: `en` or `ja`. | `en` |
+| `--sources` | Append "Conversations analyzed" section (channel list + Slack links). | off |
+
+Environment variables (see `.env.example`): `BRAG_CACHE`, `BRAG_MAX_SNIPPETS`, `BRAG_FETCH_CONCURRENCY`, `BRAG_LANG`, `BRAG_LLM_MODEL`, `BRAG_SLACK_EMAIL`.
+
+### Examples
+
+**Last 30 days (write to default path `output/brag-summary-...md`):**
 
 ```bash
 npm run brag -- --last 30d
@@ -91,7 +111,17 @@ npm run brag -- --last 7d -o my-brag.md
 npm run brag -- --last 14d --stdout
 ```
 
-**Options:** `--lang en|ja`, `--sources` (append channel list + Slack links), `--no-cache` (bypass snippet cache). See `.env.example` for `BRAG_CACHE`, `BRAG_MAX_SNIPPETS`, `BRAG_FETCH_CONCURRENCY`, and `BRAG_LANG`.
+**Japanese output, no cache, with channel links:**
+
+```bash
+npm run brag -- --last 30d --lang ja --no-cache --sources
+```
+
+**HTML format to a custom path:**
+
+```bash
+npm run brag -- --since 2025-01-01 --until 2025-03-01 --format html -o output/review.html
+```
 
 ## Output
 
