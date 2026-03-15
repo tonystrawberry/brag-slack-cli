@@ -63,15 +63,19 @@ The app is written in **TypeScript** and runs as ESM (`"type": "module"`).
 
 3. **Environment**
 
-   Copy `.env.example` to `.env` and set:
+   Copy `.env.example` to `.env` and set the required variables. All supported variables:
 
-   - `SLACK_USER_TOKEN` – your Slack user OAuth token (`xoxp-...`).
-   - `GEMINI_API_KEY` – your Gemini API key (from [Google AI Studio](https://aistudio.google.com/apikey)).
-
-   Optional:
-
-   - `BRAG_SLACK_EMAIL` – if you use a bot token or `auth.test` doesn’t identify you, set your Slack email so the app can resolve "you."
-   - `BRAG_LLM_MODEL` – Gemini model (default: `gemini-2.0-flash`).
+   | Variable | Required | Description | Default |
+   |----------|----------|-------------|---------|
+   | `SLACK_USER_TOKEN` | Yes* | Slack user OAuth token (`xoxp-...`) for searching as yourself. | — |
+   | `SLACK_BOT_TOKEN` | Yes* | Alternative to `SLACK_USER_TOKEN` (bot token). One of the two must be set. | — |
+   | `GEMINI_API_KEY` | Yes | Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey). | — |
+   | `BRAG_SLACK_EMAIL` | No | Your Slack email; used to resolve "you" when `auth.test` doesn’t (e.g. with a bot token). | — |
+   | `BRAG_LLM_MODEL` | No | Gemini model name for summaries and merge. | `gemini-2.0-flash` |
+   | `BRAG_MAX_SNIPPETS` | No | Max conversation snippets to fetch (most recent first). | `200` |
+   | `BRAG_CACHE` | No | Set to `1` or `true` to cache snippets in `.brag-cache/`. | off |
+   | `BRAG_LANG` | No | Output language: `en` or `ja`. Overridable by `--lang`. | `en` |
+   | `BRAG_FETCH_CONCURRENCY` | No | Max concurrent snippet fetches (1 = sequential). | `8` |
 
 ## Usage
 
@@ -91,7 +95,7 @@ You must provide either **`--last`** or both **`--since`** and **`--until`** to 
 | `--lang <code>` | Output language: `en` or `ja`. | `en` |
 | `--sources` | Append "Conversations analyzed" section (channel list + Slack links). | off |
 
-Environment variables (see `.env.example`): `BRAG_CACHE`, `BRAG_MAX_SNIPPETS`, `BRAG_FETCH_CONCURRENCY`, `BRAG_LANG`, `BRAG_LLM_MODEL`, `BRAG_SLACK_EMAIL`.
+All environment variables are listed in **Setup → Environment** (see also `.env.example`).
 
 ### Examples
 
